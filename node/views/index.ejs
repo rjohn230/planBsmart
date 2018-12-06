@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Plaid Quickstart Example</title>
+<title>Bsmart</title>
 <link rel="stylesheet" href="https://threads.plaid.com/threads.css">
 
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -13,23 +13,20 @@
     <div class="grid">
       <div class="grid__column grid__column--is-twelve-columns">
         <div id="banner" class="everpresent-content">
-          <h1 class="everpresent-content__heading">Plaid Quickstart</h1>
+          <h1 class="everpresent-content__heading">Welcome To bSmart</h1>
           <p id="intro" class="everpresent-content__subheading">
-            An example application that outlines an end-to-end integration with Plaid
-          </p>
-          <p id="steps" class="everpresent-content__subheading">
-           Success! You just created an Item by linking your account.
+            This is a budget planning web app wtch allows user to create personal budget plan and connect it to their banking data.
           </p>
         </div>
 
         <div id="container" class="initial-view">
           <p class="initial-view__description">
-            Click the button below to open a list of Institutions. After you select one, you’ll be guided through an authentication process. Upon completion, a public_token will be passed back to the server and exchanged for access_token.
+            Click bellow to start the process
           </p>
 
-          <button id="link-btn" class="button button--is-primary">Connect with Plaid</button>
+          <button id="link-btn" class="button button--is-primary">Connect to your bank account through Plaid</button>
         </div>
-
+        
         <div id="app" class="connected-view">
           <div class="item-overview">
             <div class="item-overview__column">
@@ -163,9 +160,12 @@
             </div>
           </div>
         </div>
+        
+        
       </div>
     </div>
   </main>
+  <div id ="score">not a score</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
@@ -183,10 +183,13 @@
           public_token: public_token
         }, function(data) {
           $('#container').fadeOut('fast', function() {
-            $('#item_id').text(data.item_id);
-            $('#access_token').text(data.access_token);
+            //$('#item_id').text(data.item_id);
+            $('#access_token').text(data.transactions[0]);
+            $('#item_id').text(data.pred);
+            $('#score').text(data.score);
             $('#intro').hide();
             $('#app, #steps').fadeIn('slow');
+            
           });
         });
       },
