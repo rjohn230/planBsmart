@@ -205,3 +205,11 @@ Hide things
 #steps {
   display: none;
 }
+#transactions_table{
+  display: none;
+}
+
+
+td{
+  padding-right: 10px
+}

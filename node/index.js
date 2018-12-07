@@ -629,21 +629,24 @@ function setPredictions(months,req,res,next)
 									error: error
 								});
 							} else {
-							var	current_transactions= transactionsResponse.transactions
+							trans = transactionsResponse.transactions
 
-								for(var b=0;b<current_transactions.length;b++)
+								for(var b=0;b<trans.length;b++)
 							{
-								var trans_category = current_transactions[b].category[0]
+								var trans_category = trans[b].category[0]
 								var column = category_folders.indexOf(trans_category)
 
-								current[column]+= current_transactions[b].amount
+								current[column]+= trans[b].amount
 
 							}
 							 prediction_lin = linearregesssion(current)
+							 current.pop()
+							 
 								res.json({
-									transactions:MonthlyTransactions,
+									transactions:trans,
 									pred:prediction_lin,
-									score:current
+									score:current,
+									category_list:category_folders
 								})
 							}
 
@@ -784,10 +787,10 @@ app.post('/get_access_token', function(request, response, next) {
   PUBLIC_TOKEN = request.body.public_token;
   client.exchangePublicToken(PUBLIC_TOKEN, function(error, tokenResponse) {
     if (error != null) {
-      prettyPrintResponse(error);
-      return response.json({
-        error: error,
-      });
+      //prettyPrintResponse(error);
+      //return response.json({
+        //error: error,
+     // });
     }
     ACCESS_TOKEN = tokenResponse.access_token;
     ITEM_ID = tokenResponse.item_id;
